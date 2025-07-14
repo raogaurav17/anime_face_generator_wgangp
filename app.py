@@ -15,6 +15,7 @@ from generator_model import Generator
 gen = Generator(z_dim=z_dim).to(device)
 gen.load_state_dict(torch.load("generator.pth", map_location=device))
 gen.eval()
+torch.save(gen.state_dict(), "GGenerator.pth")
 
 
 # === Generate Fake Images ===
@@ -24,15 +25,22 @@ def generate_images(num_images=32, seed=None):
 
     noise = torch.randn(num_images, z_dim, 1, 1).to(device)
     with torch.no_grad():
-        fake = gen(noise).cpu()
+        fake = gen(noise).detach().cpu()
 
-    grid = vutils.make_grid(fake, nrow=8, normalize=True)
+    fake = torch.nan_to_num(fake)
+
+    # Normalize correctly (if your generator outputs in [-1, 1])
+    grid = vutils.make_grid(fake, nrow=8, normalize=True, value_range=(-1, 1))
+
+    # Convert to image
     npimg = grid.numpy()
-    npimg = np.transpose(npimg, (1, 2, 0)) * 255
-    return Image.fromarray(npimg.astype(np.uint8))
+    npimg = np.transpose(npimg, (1, 2, 0))  # [H, W, C]
+    npimg = np.clip(npimg * 255, 0, 255).astype(np.uint8)
+
+    return Image.fromarray(npimg)
 
 
-# === Gradio Interface ===
+# Gradio Interface
 iface = gr.Interface(
     fn=generate_images,
     inputs=[

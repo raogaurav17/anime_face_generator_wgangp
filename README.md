@@ -10,9 +10,6 @@ AnimeFaceGenWGANGP is a deep learning project for generating anime-style faces u
 - [Usage](#usage)
 - [Model Files](#model-files)
 - [Training](#training)
-- [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
