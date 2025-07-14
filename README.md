@@ -106,4 +106,4 @@ Contributions are welcome! Please open issues or submit pull requests for improv
 For questions, suggestions, or collaboration, please contact the repository owner:
 
 - GitHub: [raogaurav17](https://github.com/raogaurav17)
-- LinkedIn: [Gaurav Rao](https://www.linkedin.com/in/ydv17gaurav)
+- LinkedIn: [ydv17gaurav](https://www.linkedin.com/in/ydv17gaurav)
